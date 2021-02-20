@@ -12,6 +12,31 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
+  <main>
+    <header>
+      <h1>TODO</h1>  
+      <img src="images/icon-sun.svg">
+    </header>
+    <div class="todo-container">
+      <div class="create-item">
+        <span class="status"></span>
+        <input type="text" name="create" placeholder="Create a new todo...">
+      </div>
+      <ul class="todo-list-items">
+        <li><span class="status"></span><p>Complete online JavaScript course</p><img class="close" src="images/icon-cross.svg"></li>
+        <li><span class="status"></span><p>Jog around the park 3x</p><img class="close" src="images/icon-cross.svg"></li>
+        <li><span class="status"></span><p>Read for 1 hour</p><img class="close" src="images/icon-cross.svg"></li>
+        <li><span class="status"></span><p>Pick up groceries</p><img class="close" src="images/icon-cross.svg"></li>
+        <li><span class="status"></span><p>Complete Todo App on Frontend Mentor</p><img class="close" src="images/icon-cross.svg"></li>
+        <li><p>5 items left</p><a href="#">Clear Completed</a></li>
+      </ul>
+      <div class="items-filter">
+        <a href="#" class="all">All</a>
+        <a href="#" class="active">Active</a>
+        <a href="#" class="completed">Completed</a>
+      </div>
+    </div>
+    <p class="info">Drag and drop to reorder list</p>
+  </main> 
 </body>
 </html>
