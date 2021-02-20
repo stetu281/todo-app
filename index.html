@@ -14,22 +14,45 @@
 <body>
   <main>
     <header>
-      <h1>TODO</h1>  
+      <h1 class="title">TODO</h1>  
       <img src="images/icon-sun.svg">
     </header>
     <div class="todo-container">
       <div class="create-item">
         <span class="status"></span>
-        <input type="text" name="create" placeholder="Create a new todo...">
+        <p>Create a new todo...</p>
       </div>
-      <ul class="todo-list-items">
-        <li><span class="status"></span><p>Complete online JavaScript course</p><img class="close" src="images/icon-cross.svg"></li>
-        <li><span class="status"></span><p>Jog around the park 3x</p><img class="close" src="images/icon-cross.svg"></li>
-        <li><span class="status"></span><p>Read for 1 hour</p><img class="close" src="images/icon-cross.svg"></li>
-        <li><span class="status"></span><p>Pick up groceries</p><img class="close" src="images/icon-cross.svg"></li>
-        <li><span class="status"></span><p>Complete Todo App on Frontend Mentor</p><img class="close" src="images/icon-cross.svg"></li>
-        <li><p>5 items left</p><a href="#">Clear Completed</a></li>
-      </ul>
+      <div class="todo-list-items">
+        <div class="item">
+          <div class="status"><img src="images/icon-check.svg"></div>
+          <p>Complete online JavaScript course</p>
+          <img class="close" src="images/icon-cross.svg" alt="">
+        </div>
+        <div class="item">
+          <div class="status"></div>
+          <p>Jog around the park 3x</p>
+          <img class="close" src="images/icon-cross.svg" alt="">
+        </div>
+        <div class="item">
+          <div class="status"></div>
+          <p>Read for 1 hour</p>
+          <img class="close" src="images/icon-cross.svg" alt="">
+        </div>
+        <div class="item">
+          <div class="status"></div>
+          <p>Pick up groceries</p>
+          <img class="close" src="images/icon-cross.svg" alt="">
+        </div>
+        <div class="item">
+          <div class="status"></div>
+          <p>Complete Todo App on Frontend Mentor</p>
+          <img class="close" src="images/icon-cross.svg" alt="">
+        </div>
+        <div class="clear-completed">
+          <p>5 items left</p>
+          <a href="#">Clear Completed</a>
+        </div>
+      </div>
       <div class="items-filter">
         <a href="#" class="all">All</a>
         <a href="#" class="active">Active</a>
