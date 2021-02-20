@@ -9,6 +9,7 @@
 }
 
 body {
+    min-height: 100vh;
     font-size: 18px;
     font-family: 'Josefin Sans', sans-serif;
     color: white;
@@ -21,8 +22,15 @@ body {
     justify-content: center;
 }
 
+@media screen and (min-width: 1440px) {
+    body {
+        background-image: url(images/bg-desktop-dark.jpg);    
+    }
+}
+
 main {
     width: 85%;
+    max-width: 800px;
 }
 
 header {
@@ -70,6 +78,12 @@ header {
     justify-self: flex-start;
 }
 
+@media screen and (min-width: 1440px)  {
+    .description {
+        font-size: 1rem;
+    }
+}
+
 .close:hover {
     cursor: pointer;
 }
@@ -110,6 +124,17 @@ header {
     color:hsla(234, 39%, 85%, 0.2);
 }
 
+.desktop-filter {
+    display: none;
+}
+
+@media screen and (min-width: 1440px) {
+    .complete p,
+    .complete a {
+        font-size: 1rem;
+    }
+}
+
 /* filter box */
 
 .filter {
@@ -125,8 +150,22 @@ header {
 }
 
 .filter a.active,
-.filter a:hover {
+.filter a:hover,
+.desktop-filter a.active,
+.desktop-filter a:hover {
     color: hsl(280, 87%, 65%);
+}
+
+@media screen and (min-width: 1440px) {
+    .desktop-filter {
+        display: block;
+    }
+    .filter {
+        display: none;
+    }
+    .filter a {
+        font-size: 1rem;
+    }
 }
 
 /* info */
