@@ -5,8 +5,8 @@
     padding: 0;
     box-sizing: border-box;
     list-style-type: none;
+    text-decoration: none;
 }
-
 
 body {
     font-size: 18px;
@@ -17,8 +17,121 @@ body {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: fixed;
+    display: flex;
+    justify-content: center;
 }
 
 main {
-    padding: 2rem 1rem;
+    width: 85%;
+}
+
+header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    letter-spacing: 1rem;
+    font-size: 1.5rem;
+}
+
+.item {
+    padding: 1.3rem; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    background: hsl(235, 24%, 19%);    
+}
+
+.status {
+    width: 22px;
+    height: 22px;
+    border: 1px solid hsl(234, 39%, 85%, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checked {
+    background-image: url(images/icon-check.svg), linear-gradient(130deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+    background-position: center;
+    background-size: auto, 30px 30px;
+    background-repeat: no-repeat;  
+}
+
+.description {
+    margin-left: 15px;
+    font-size: 0.75rem;
+    flex-grow: 1;
+    justify-self: flex-start;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.done {
+    text-decoration: line-through;
+    color:hsla(234, 39%, 85%, 0.2);
+}
+
+/*Create Box*/
+
+.create-item {
+    margin-top: 40px;
+    color:hsla(234, 39%, 85%, 0.2);
+}
+
+/* Todolist box*/
+
+.todo-list-items {
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.todo-list-items .item {
+    border-radius: 0;
+    border-bottom: 1px solid hsla(234, 39%, 85%, 0.2);
+}
+
+.todo-list-items .item:last-child {
+    border-bottom: none;
+}
+
+.complete p,
+.complete a {
+    margin-left: 0;
+    font-size: 0.9rem;
+    color:hsla(234, 39%, 85%, 0.2);
+}
+
+/* filter box */
+
+.filter {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.filter a {
+    margin: 0 7px;
+    font-weight: 700;
+    font-size: 1rem;
+    color:hsla(234, 39%, 85%, 0.2)
+}
+
+.filter a.active,
+.filter a:hover {
+    color: hsl(280, 87%, 65%);
+}
+
+/* info */
+.info {
+    text-align: center;
+    margin-top: 70px;
+    color:hsla(234, 39%, 85%, 0.2);
 }
