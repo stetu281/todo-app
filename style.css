@@ -160,12 +160,13 @@ header {
     .desktop-filter {
         display: block;
     }
+    .desktop-filter a {
+        font-size: 1rem;
+        margin: 0 7px;
+    }
     .filter {
         display: none;
-    }
-    .filter a {
-        font-size: 1rem;
-    }
+    }    
 }
 
 /* info */
