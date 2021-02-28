@@ -23,7 +23,7 @@
         @extend .create-item__status;
 
         &--checked {
-            background-image: url(../images/icon-check.svg), linear-gradient(130deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+            background-image: url(../images/icon-check.svg), linear-gradient(130deg,hsl(192, 100%, 67%),$active);
             background-position: center;
             background-size: auto, 30px 30px;
             background-repeat: no-repeat; 
@@ -31,7 +31,7 @@
 
         &:hover {
             cursor: pointer;
-            border-color: hsl(280, 87%, 65%);
+            border-color: $active;
         }
     }
 
