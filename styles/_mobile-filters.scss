@@ -1,0 +1,17 @@
+.mobile-filters {
+    @extend .create-item;
+    justify-content: center;
+
+    &__filter {
+        color: $font-light;
+        padding: 0 0.5rem;
+
+        &--active {
+            color: hsl(280, 87%, 65%);
+        }
+
+        &:hover {
+            color: white;
+        }
+    }
+}
