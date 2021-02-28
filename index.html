@@ -17,54 +17,62 @@
       <h1 class="header__title">TODO</h1>  
       <img class="header__icon" src="images/icon-sun.svg">
     </header>
-    <div class="todo-container">
-      <div class="item create-item">
-        <span class="status"></span>
-        <p class="description">Create a new todo...</p>
-      </div>
-      <div class="todo-list-items">
-        <div class="item">
-          <div class="status checked"></div>
-          <p class="description done">Complete online JavaScript course</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Jog around the park 3x</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Read for 1 hour</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Pick up groceries</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Complete Todo App on Frontend Mentor</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item complete">
-          <p>5 items left</p>
-          <span class="desktop-filter">
-            <a href="#" class="active">All</a>
-            <a href="#">Active</a>
-            <a href="#">Completed</a>
-          </span>
-          <a href="#">Clear Completed</a>
-        </div>
-      </div>
-      <div class="item filter">
-        <a href="#" class="active">All</a>
-        <a href="#">Active</a>
-        <a href="#">Completed</a>
-      </div>
+    <div class="create-item">
+      <div class="create-item__status"></div>
+      <input type="text" class="create-item__input" placeholder="Create a new todo...">
     </div>
-    <p class="info">Drag and drop to reorder list</p>
+    <div class="list-items">
+
+      <div class="list-items__item">
+        <div class="list-items__status list-items__status--checked"></div>
+        <p class="list-items__description list-items__description--done">
+          Complete online JavaScript course
+        </p>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </div>
+
+      <div class="list-items__item">
+        <div class="list-items__status"></div>
+        <p class="list-items__description">
+          Jog around the park 3x
+        </p>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </div>
+
+      <div class="list-items__item">
+        <div class="list-items__status"></div>
+        <p class="list-items__description">
+          10 minutes meditation
+        </p>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </div>
+
+      <div class="list-items__item">
+        <div class="list-items__status"></div>
+        <p class="list-items__description">
+          Read for 1 hour
+        </p>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </div>
+
+      <div class="list-items__item">
+        <div class="list-items__status"></div>
+        <p class="list-items__description">
+          Pick up groceries
+        </p>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </div>
+
+      <div class="list-items__item">
+        <div class="list-items__status"></div>
+        <p class="list-items__description">
+          Complete Todo App on Frontend Mentor
+        </p>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </div>
+
+    </div>
+
   </main> 
 </body>
 </html>

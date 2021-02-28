@@ -1,0 +1,58 @@
+.list-items {
+    margin-top: 20px;
+
+    &__item {
+        @extend .create-item;
+        margin-top: 0;
+        border-radius: 0;
+
+        &:first-child {
+            border-radius: 5px 5px 0 0;
+        }
+
+        &:hover {
+            .list-items__close {
+                opacity: 1;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__status {
+        @extend .create-item__status;
+
+        &--checked {
+            background-image: url(../images/icon-check.svg), linear-gradient(130deg,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+            background-position: center;
+            background-size: auto, 30px 30px;
+            background-repeat: no-repeat; 
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-color: hsl(280, 87%, 65%);
+        }
+    }
+
+    &__description {
+
+        margin-left: 15px;
+        font-size: 0.75rem;
+        flex-grow: 1;
+        justify-self: flex-start;
+
+        &--done {
+            text-decoration: line-through;
+            color: hsl(234, 39%, 85%, 0.2);
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__close {
+        opacity: 0;
+
+    }
+}

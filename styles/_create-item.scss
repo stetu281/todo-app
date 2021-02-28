@@ -1,0 +1,28 @@
+.create-item {
+    padding: 1.3rem; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    background: hsl(235, 24%, 19%);
+    margin-top: 40px;
+
+    &__status {
+        width: 22px;
+        height: 22px;
+        border: 1px solid hsl(234, 39%, 85%, 0.2);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__input {
+        border: none;
+        background-color: transparent;
+        color: white;
+        justify-self: flex-start;
+        flex-grow: 1;
+        margin-left: 15px;
+    }
+}
