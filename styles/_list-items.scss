@@ -50,6 +50,10 @@
         &:hover {
             cursor: pointer;
         }
+
+        @include media ($desktop-view) {
+            font-size: 1rem;
+        }
     }
 
     &__close {

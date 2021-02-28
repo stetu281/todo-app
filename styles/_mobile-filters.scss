@@ -14,4 +14,9 @@
             color: white;
         }
     }
+}    
+@include media ($desktop-view) {
+    .mobile-filters {
+        display: none;
+    }
 }

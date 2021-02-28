@@ -5,7 +5,7 @@
     font-size: 0.8rem;
     color: $font-light;
 
-    &__desktop-filter {
+    &__desktop-filters {
         display: none;
     }
 
@@ -15,5 +15,31 @@
         &:hover {
             color: white;
         }
+    }
+}
+
+@include media ($desktop-view) {
+    .clear {
+        font-size: 1rem;
+        
+        &__desktop-filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__desktop-filter {
+            padding: 0.5rem;
+            color: $font-light;
+            font-size: 1rem;
+
+            &--active {
+                color: hsl(280, 87%, 65%);
+            }
+
+            &:hover {
+                color: white;
+            }
+        }        
     }
 }
