@@ -19,38 +19,46 @@
         }
     }
 
-    &__status {
-        @extend .create-item__status;
+    &__checkbox-label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
 
-        &--checked {
+    &__checkbox {
+        visibility: hidden;
+
+        &:checked ~ .list-items__status--checked {
             background-image: url(../images/icon-check.svg), linear-gradient(130deg,hsl(192, 100%, 67%),$active);
             background-position: center;
             background-size: auto, 30px 30px;
             background-repeat: no-repeat; 
         }
 
-        &:hover {
-            cursor: pointer;
-            border-color: $active;
+        &:checked ~ .list-items__description--done {
+            text-decoration: line-through;
+            color: $font-light;           
         }
     }
 
-    &__description {
-
-        margin-left: 15px;
-        font-size: 0.75rem;
-        flex-grow: 1;
-        justify-self: flex-start;
-
-        &--done {
-            text-decoration: line-through;
-            color: $font-light;
-        }
+    &__status {
+        @extend .create-item__status; 
+        position: absolute;
 
         &:hover {
-            cursor: pointer;
+            border-color: $active;
         }
 
+    }
+
+    &__description {
+        margin: 3px 0 0 20px;
+        font-size: 0.75rem;
+        flex-grow: 1;
+        justify-self: flex-start;  
+        
         @include media ($desktop-view) {
             font-size: 1rem;
         }
