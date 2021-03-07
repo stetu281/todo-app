@@ -4,16 +4,36 @@
     border-radius: 0 0 5px 5px;
     font-size: 0.8rem;
     color: $font-light;
+    position: relative;
 
-    &__desktop-filters {
-        display: none;
+    &__filters {
+        @extend .create-item;
+        justify-content: center;
+        position: absolute;
+        top: 50px; 
+        left: 0;
+        width: 100%;
+       
     }
 
-    &__button {
+    &__button,
+    &__filter {
         color: $font-light;
+        background: none;
+        border: none;
 
         &:hover {
             color: white;
+            cursor: pointer;
+        }
+    }
+
+    &__filter {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+
+        &--active {
+            color: $active;
         }
     }
 }
@@ -22,24 +42,13 @@
     .clear {
         font-size: 1rem;
         
-        &__desktop-filters {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        &__filters {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            top: 0;
+            width: auto;
+            height: auto;
         }
-
-        &__desktop-filter {
-            padding: 0.5rem;
-            color: $font-light;
-            font-size: 1rem;
-
-            &--active {
-                color: $active;
-            }
-
-            &:hover {
-                color: white;
-            }
-        }        
     }
 }
