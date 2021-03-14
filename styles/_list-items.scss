@@ -31,10 +31,14 @@
         visibility: hidden;
 
         &:checked ~ .list-items__status--checked {
-            background-image: url(../images/icon-check.svg), linear-gradient(130deg,hsl(192, 100%, 67%),$active);
+            background-image: url(../images/icon-check.svg), $gradient;
             background-position: center;
             background-size: auto, 30px 30px;
             background-repeat: no-repeat; 
+
+            &::after {
+                display: none;
+            }
         }
 
         &:checked ~ .list-items__description--done {
@@ -44,11 +48,25 @@
     }
 
     &__status {
-        @extend .create-item__status; 
+        width: 22px;
+        height: 22px;
+        background-color: $font-light;
+        border-radius: 50%;
         position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::after {
+            content: "";
+            width: 90%;
+            height: 90%;
+            background-color: $list-bg;
+            border-radius: 50%;
+        }
 
         &:hover {
-            border-color: $active;
+            background-image: $gradient;
         }
 
     }
