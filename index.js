@@ -1,5 +1,3 @@
-
-
 document.querySelector('.header__button').addEventListener('click', (e) => {
     document.body.classList.toggle('light-mode');
     if(document.body.classList.contains('light-mode')) {
