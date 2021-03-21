@@ -9,9 +9,12 @@
         letter-spacing: 0.7rem;
     }
 
-    &__icon {
+    &__button {
+        background-color: transparent;
+        border: none;
+        outline: none;
         &:hover {
             cursor: pointer;
-        }
+        }        
     }
 }
