@@ -1,0 +1,54 @@
+.light-mode {
+    background-color: hsl(236, 33%, 92%);
+    background-image: url(../images/bg-mobile-light.jpg);
+    color: $light-theme-font;
+
+    .header__title {
+        color: white;
+    }
+
+    .create-item {
+        background-color: white;
+
+        &__status {
+            border-color: $light-theme-status;
+        }
+    }
+
+    .list-items__status {
+        background-color: $light-theme-status;
+
+        &::after {
+            background-color: white;            
+        }
+
+    }
+
+    .list-items__checkbox:checked ~ .list-items__description--done {
+        color:lighten($light-theme-font, 50%);
+    }
+
+    .clear__stats,
+    .clear__button,
+    .clear__filter {
+        color:lighten($light-theme-font, 30%);
+    }
+
+    .clear__filter {
+        &--active {
+            color: $active;
+        }
+
+        &:hover {
+            color: $light-theme-font;
+        }
+    }
+}
+
+
+
+@include media($desktop-view) {
+    .light-mode {
+        background-image: url(../images/bg-desktop-light.jpg);    
+    }
+}

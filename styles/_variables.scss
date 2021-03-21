@@ -1,5 +1,7 @@
-$desktop-view: 1440px;
+$desktop-view: 1024px;
 $font-light: hsl(234, 39%, 85%, 0.2);
-$active: hsl(280, 87%, 65%);
+$active: hsl(220, 98%, 61%);
 $list-bg: hsl(235, 24%, 19%);
-$gradient: linear-gradient(130deg,hsl(192, 100%, 67%),$active);
+$gradient: linear-gradient(130deg,hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+$light-theme-font: hsl(235, 19%, 35%);
+$light-theme-status: rgba(202, 205, 232, 1);
