@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/stetu281/todo-app/issues"
   },
-  "homepage": "https://github.com/stetu281/todo-app#readme"
+  "homepage": "https://github.com/stetu281/todo-app#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.10",
+    "tailwindcss": "^2.1.1"
+  }
 }
