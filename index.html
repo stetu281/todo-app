@@ -9,62 +9,92 @@
   <title>Frontend Mentor | Todo app</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
   <main>
-    <header>
-      <h1 class="title">TODO</h1>  
-      <img src="images/icon-sun.svg">
+
+    <header class="header">
+      <h1 class="header__title">TODO</h1>
+      <button class="header__button">
+        <img class="header__icon" src="images/icon-sun.svg">  
+      </button>  
+      
     </header>
-    <div class="todo-container">
-      <div class="item create-item">
-        <span class="status"></span>
-        <p class="description">Create a new todo...</p>
-      </div>
-      <div class="todo-list-items">
-        <div class="item">
-          <div class="status checked"></div>
-          <p class="description done">Complete online JavaScript course</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Jog around the park 3x</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Read for 1 hour</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Pick up groceries</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item">
-          <div class="status"></div>
-          <p class="description">Complete Todo App on Frontend Mentor</p>
-          <img class="close" src="images/icon-cross.svg" alt="">
-        </div>
-        <div class="item complete">
-          <p>5 items left</p>
-          <span class="desktop-filter">
-            <a href="#" class="active">All</a>
-            <a href="#">Active</a>
-            <a href="#">Completed</a>
-          </span>
-          <a href="#">Clear Completed</a>
-        </div>
-      </div>
-      <div class="item filter">
-        <a href="#" class="active">All</a>
-        <a href="#">Active</a>
-        <a href="#">Completed</a>
-      </div>
+
+    <div class="create-item">
+      <div class="create-item__status"></div>
+      <input type="text" class="create-item__input" placeholder="Create a new todo...">
     </div>
-    <p class="info">Drag and drop to reorder list</p>
+
+    <ul class="list-items">
+      <li class="list-items__item">
+          <label class="list-items__checkbox-label">  
+            <input type="checkbox" class="list-items__checkbox">
+            <div class="list-items__status list-items__status--checked"></div> 
+            <span class="list-items__description list-items__description--done">Complete online Javascript course</span>
+          </label>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </li>
+
+      <li class="list-items__item">
+          <label class="list-items__checkbox-label">  
+            <input type="checkbox" class="list-items__checkbox">
+            <div class="list-items__status list-items__status--checked"></div> 
+            <span class="list-items__description list-items__description--done">Jog around the park 3x</span>
+          </label>      
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </li>
+
+      <li class="list-items__item">
+          <label class="list-items__checkbox-label">  
+            <input type="checkbox" class="list-items__checkbox">
+            <div class="list-items__status list-items__status--checked"></div> 
+            <span class="list-items__description list-items__description--done">10 minutes meditation</span>
+          </label>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </li>
+
+      <li class="list-items__item">
+          <label class="list-items__checkbox-label">  
+            <input type="checkbox" class="list-items__checkbox">
+            <div class="list-items__status list-items__status--checked"></div> 
+            <span class="list-items__description list-items__description--done">Read for 1 hour</span>
+          </label>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </li>
+
+      <li class="list-items__item">
+          <label class="list-items__checkbox-label">  
+            <input type="checkbox" class="list-items__checkbox">
+            <div class="list-items__status list-items__status--checked"></div> 
+            <span class="list-items__description list-items__description--done">Pick up groceries</span>
+          </label>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </li>
+
+      <li class="list-items__item">
+          <label class="list-items__checkbox-label">  
+            <input type="checkbox" class="list-items__checkbox">
+            <div class="list-items__status list-items__status--checked"></div> 
+            <span class="list-items__description list-items__description--done">Complete Todo App on Frontend Mentor</span>
+          </label>
+        <img class="list-items__close" src="images/icon-cross.svg" alt="">
+      </li>
+    </ul>
+
+    <div class="clear">
+      <p class="clear__stats">5 items left</p>
+      <div class="clear__filters">
+        <button class="clear__filter clear__filter--active">All</button>
+        <button class="clear__filter">Active</button>
+        <button class="clear__filter">Completed</button>
+      </div>
+      <button class="clear__button">Clear Completed</button>
+    </div>
+
+    <p class="instruction">Drag and drop to reorder list</p>
   </main> 
+  <script src="index.js"></script>
 </body>
 </html>
