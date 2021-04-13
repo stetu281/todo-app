@@ -7,6 +7,9 @@ module.exports = {
     },
 
     colors: {
+        'white': '#ffffff',
+        'transparent': 'transparent',
+
       primary: {
         'brightBlue': 'hsl(220, 98%, 61%)',
         'gradiant1': 'hsl(192, 100%, 67%)',
@@ -39,6 +42,23 @@ module.exports = {
     extend: {
       screens: {
         'desktop': '1440px',
+      },
+
+      backgroundImage: dark => ({
+        'mobileBg': "url('/images/bg-mobile-dark.jpg')",
+        'desktopBg': "url('/images/bg-desktop-dark.jpg')",
+      }), 
+
+      zIndex: {
+        '-10': '-10',
+      },
+
+      letterSpacing: {
+        'widest2': '0.5rem',
+      },
+
+      border: {
+        '1': '1px',
       },
     },
   },

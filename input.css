@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.list-item {
+    @apply flex items-center justify-center px-5 py-4 bg-darkTheme-blue-vDarkDesat border-b border-darkTheme-blue-dark
+}
+
+.circle {
+    @apply w-5 h-5 bg-transparent border-solid border border-lightTheme-blue-dark rounded-full opacity-40
+}

@@ -9,92 +9,66 @@
   <title>Frontend Mentor | Todo app</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-  <main>
-
-    <header>
-      <h1>TODO</h1>
-      <button>
-        <img src="images/icon-sun.svg">  
-      </button>  
-      
-    </header>
-
-    <div>
-      <div></div>
-      <input type="text" placeholder="Create a new todo...">
+<body class="text-lg text-white bg-darkTheme-blue-vDark">
+  <div class="w-full h-48 absolute bg-mobileBg bg-cover -z-10 desktop:bg-desktopBg desktop:h-80"></div>
+  <header class="w-10/12 max-w-3xl pt-10 mx-auto flex justify-between items-center">
+    <h1 class="text-3xl font-bold tracking-widest2">TODO</h1>
+    <button>
+      <img src="images/icon-sun.svg">  
+    </button>  
+  </header>
+  <main class="mt-10 w-10/12 max-w-3xl mx-auto">
+  <div class="w-full mx-auto px-5 py-4 bg-darkTheme-blue-vDarkDesat flex items-center justify-start rounded-md">
+    <div class="circle"></div>
+    <input type="text" placeholder="Create a new todo..." class="bg-darkTheme-blue-vDarkDesat ml-3 text-sm">
+  </div>
+  <ul class="mt-5 rounded-t-md overflow-hidden">
+    <li class="list-item"> 
+      <div class="circle"></div>
+      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-dark line-through">Complete online Javascript course</span>
+      <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
+    </li>
+    <li class="list-item"> 
+      <div class="circle"></div>
+      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Jog around the park 3x</span>
+      <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
+    </li>
+    <li class="list-item"> 
+      <div class="circle"></div>
+      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">10 minutes meditation</span>
+      <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
+    </li>
+    <li class="list-item"> 
+      <div class="circle"></div>
+      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Read for 1 hour</span>
+      <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
+    </li>
+    <li class="list-item"> 
+      <div class="circle"></div>
+      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Pick up groceries</span>
+      <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
+    </li>
+    <li class="list-item"> 
+      <div class="circle"></div>
+      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Complete Todo App on Frontend Mentor</span>
+      <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
+    </li>
+  </ul>
+  <div class="px-5 py-4 bg-darkTheme-blue-vDarkDesat rounded-b-md relative flex justify-between items-center
+  text-darkTheme-blue-dark">
+    <p class="text-xs">5 items left</p>
+    <div class="absolute left-0 top-16 w-full px-5 py-4 flex justify-center items-center bg-darkTheme-blue-vDarkDesat 
+    text-base font-bold text-darkTheme-blue-dark rounded-md">
+      <button>All</button>
+      <button class="mx-4">Active</button>
+      <button>Completed</button>
     </div>
-
-    <ul>
-      <li>
-          <label>  
-            <input type="checkbox">
-            <div></div> 
-            <span>Complete online Javascript course</span>
-          </label>
-        <img src="images/icon-cross.svg" alt="">
-      </li>
-
-      <li>
-          <label>  
-            <input type="checkbox">
-            <div></div> 
-            <span>Jog around the park 3x</span>
-          </label>      
-        <img src="images/icon-cross.svg" alt="">
-      </li>
-
-      <li>
-          <label>  
-            <input type="checkbox">
-            <div></div> 
-            <span>10 minutes meditation</span>
-          </label>
-        <img src="images/icon-cross.svg" alt="">
-      </li>
-
-      <li>
-          <label>  
-            <input type="checkbox">
-            <div></div> 
-            <span>Read for 1 hour</span>
-          </label>
-        <img src="images/icon-cross.svg" alt="">
-      </li>
-
-      <li>
-          <label>  
-            <input type="checkbox">
-            <div></div> 
-            <span>Pick up groceries</span>
-          </label>
-        <img src="images/icon-cross.svg" alt="">
-      </li>
-
-      <li>
-          <label>  
-            <input type="checkbox">
-            <div></div> 
-            <span>Complete Todo App on Frontend Mentor</span>
-          </label>
-        <img src="images/icon-cross.svg" alt="">
-      </li>
-    </ul>
-
-    <div>
-      <p>5 items left</p>
-      <div>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
-      </div>
-      <button>Clear Completed</button>
-    </div>
-
-    <p>Drag and drop to reorder list</p>
-  </main> 
+    <button class="text-xs">Clear Completed</button>
+  </div>
+  <p class="mt-28 text-center text-darkTheme-blue-dark text-base">Drag and drop to reorder list</p>
+</main> 
   <script src="index.js"></script>
 </body>
 </html>
