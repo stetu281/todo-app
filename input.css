@@ -2,14 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .circle::after {
+        content: '';
+        width: 18px;
+        height: 18px;
+        background-color: hsl(235, 24%, 19%);
+        position: absolute;
+        border-radius: 50%;
+    } 
+    
+    .circle-active::after {
+        background-color: transparent;
+        background-image: url(images/icon-check.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
 .list-item {
-    @apply flex items-center justify-center px-5 py-4 bg-darkTheme-blue-vDarkDesat border-b border-darkTheme-blue-dark
+    @apply flex items-center justify-center px-5 py-4 bg-darkTheme-blue-vDarkDesat border-b 
+    border-darkTheme-blue-dark
 }
 
 .circle {
-    @apply w-5 h-5 bg-transparent border-solid border border-lightTheme-blue-dark rounded-full opacity-40
+    @apply relative w-5 h-5 bg-darkTheme-blue-dark opacity-40 rounded-full flex justify-center 
+    items-center cursor-pointer bg-gradient-to-br hover:from-primary-gradiant1 
+    hover:to-primary-gradiant2 hover:opacity-100
+}
+
+.circle-active {
+    @apply bg-gradient-to-br from-primary-gradiant1 to-primary-gradiant2 opacity-100
 }
 
 .list-item-text {
     @apply ml-3 flex-grow text-xs text-darkTheme-blue-light desktop:text-base
 }
+
+

@@ -41,7 +41,7 @@ module.exports = {
 
     extend: {
       screens: {
-        'desktop': '1440px',
+        'desktop': '768px',
       },
 
       backgroundImage: dark => ({
