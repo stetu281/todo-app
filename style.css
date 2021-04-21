@@ -20117,6 +20117,22 @@ video {
   width: 1.25rem
 }
 
+.list-item-text {
+  flex-grow: 1;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-left: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(201.83249999999998, 204.81599999999997, 231.6675, var(--tw-text-opacity))
+}
+
+@media (min-width: 1440px) {
+  .list-item-text {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

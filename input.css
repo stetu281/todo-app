@@ -9,3 +9,7 @@
 .circle {
     @apply w-5 h-5 bg-transparent border-solid border border-lightTheme-blue-dark rounded-full opacity-40
 }
+
+.list-item-text {
+    @apply ml-3 flex-grow text-xs text-darkTheme-blue-light desktop:text-base
+}

@@ -22,50 +22,50 @@
   <main class="mt-10 w-10/12 max-w-3xl mx-auto">
   <div class="w-full mx-auto px-5 py-4 bg-darkTheme-blue-vDarkDesat flex items-center justify-start rounded-md">
     <div class="circle"></div>
-    <input type="text" placeholder="Create a new todo..." class="bg-darkTheme-blue-vDarkDesat ml-3 text-sm">
+    <input type="text" placeholder="Create a new todo..." class="bg-darkTheme-blue-vDarkDesat ml-3 text-sm desktop:text-base">
   </div>
   <ul class="mt-5 rounded-t-md overflow-hidden">
     <li class="list-item"> 
       <div class="circle"></div>
-      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-dark line-through">Complete online Javascript course</span>
+      <span class="list-item-text line-through">Complete online Javascript course</span>
       <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
     </li>
     <li class="list-item"> 
       <div class="circle"></div>
-      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Jog around the park 3x</span>
+      <span class="list-item-text">Jog around the park 3x</span>
       <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
     </li>
     <li class="list-item"> 
       <div class="circle"></div>
-      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">10 minutes meditation</span>
+      <span class="list-item-text">10 minutes meditation</span>
       <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
     </li>
     <li class="list-item"> 
       <div class="circle"></div>
-      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Read for 1 hour</span>
+      <span class="list-item-text">Read for 1 hour</span>
       <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
     </li>
     <li class="list-item"> 
       <div class="circle"></div>
-      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Pick up groceries</span>
+      <span class="list-item-text">Pick up groceries</span>
       <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
     </li>
     <li class="list-item"> 
       <div class="circle"></div>
-      <span class="ml-3 flex-grow text-xs text-darkTheme-blue-light">Complete Todo App on Frontend Mentor</span>
+      <span class="list-item-text">Complete Todo App on Frontend Mentor</span>
       <img class="w-4 h-4" src="images/icon-cross.svg" alt="">
     </li>
   </ul>
   <div class="px-5 py-4 bg-darkTheme-blue-vDarkDesat rounded-b-md relative flex justify-between items-center
   text-darkTheme-blue-dark">
-    <p class="text-xs">5 items left</p>
+    <p class="text-xs desktop:text-base">5 items left</p>
     <div class="absolute left-0 top-16 w-full px-5 py-4 flex justify-center items-center bg-darkTheme-blue-vDarkDesat 
-    text-base font-bold text-darkTheme-blue-dark rounded-md">
-      <button>All</button>
-      <button class="mx-4">Active</button>
-      <button>Completed</button>
+    text-base text-darkTheme-blue-dark rounded-md desktop:w-auto desktop:static desktop:py-0">
+      <button class=" hover:text-primary-brightBlue">All</button>
+      <button class="mx-4 hover:text-primary-brightBlue">Active</button>
+      <button class="hover:text-primary-brightBlue">Completed</button>
     </div>
-    <button class="text-xs">Clear Completed</button>
+    <button class="text-xs desktop:text-base">Clear Completed</button>
   </div>
   <p class="mt-28 text-center text-darkTheme-blue-dark text-base">Drag and drop to reorder list</p>
 </main> 
