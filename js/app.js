@@ -63,3 +63,8 @@ taskInput.addEventListener('keyup', (e) => {
     };
 });
 
+//tasks löschen
+list.addEventListener('click', delegate('img.list-items__close', (e) => {
+    removeElement(e.target.parentNode);
+}));
+
