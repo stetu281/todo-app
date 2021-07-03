@@ -10,19 +10,15 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
     }
 })
 
-//tasks
-const tasks = [
-    {task: "Complete online Javascript course", checked: true},
-    {task: "Wash dishes", checked: false},
-    {task: "Do homework", checked: false},
-    {task: "Make todo list", checked: true},
-    {task: "Go shopping", checked: true}
-]
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
+let tasks = [];
 
-render(tasks);
-
+let storage = localStorage.getItem('tasks');
+if(storage) {
+    tasks = JSON.parse(storage);
+    render(tasks);
+}
 
 function render(tasks) {
     list.innerHTML = '';
@@ -50,9 +46,30 @@ function addItem() {
         const input = {task: taskInput.value, checked: false};
         taskInput.value = '';
         tasks.push(input);
+        setLocalstorage(tasks);
         render(tasks);
     };
 };
+
+function setLocalstorage(tasks) {
+    let json = JSON.stringify(tasks);
+    localStorage.setItem('tasks', json);
+}
+
+function changeStatus(id) {
+    console.log(id)
+    tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
+    setLocalstorage(tasks);
+}
+
+//Checked status im objekt ändern
+list.addEventListener('click', delegate('.list-items__status', (e) => {
+    changeStatus(e.target.parentNode.parentNode.id);
+}))
+
+list.addEventListener('click', delegate('span.list-items__description', (e) => {
+    changeStatus(e.target.parentNode.parentNode.id);
+}))
 
 
 //Task zur Liste hinzufügen
@@ -66,5 +83,8 @@ taskInput.addEventListener('keyup', (e) => {
 //tasks löschen
 list.addEventListener('click', delegate('img.list-items__close', (e) => {
     removeElement(e.target.parentNode);
+    tasks.splice(e.target.parentNode.id, 1);
+    setLocalstorage(tasks);
+    render(tasks);
 }));
 
