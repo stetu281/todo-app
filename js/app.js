@@ -40,6 +40,11 @@ function render(tasks) {
         `;
         list.appendChild(li);
     }
+
+    //Anzahl nicht erledigter Tasks anzeigen
+    let doneTasks = tasks.filter(task => task.checked === false);
+    document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;
+    
 };
 
 //Funktion Wenn input leer alert ausgeben sonst Objekt erstellen und ins Tasks Array pushen.
@@ -64,7 +69,6 @@ function setLocalstorage(tasks) {
 
 //Funktion zum Status im Objekt ändern
 function changeStatus(id) {
-    console.log(id)
     tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
     setLocalstorage(tasks);
 }
@@ -72,10 +76,12 @@ function changeStatus(id) {
 //Checked status im objekt ändern
 list.addEventListener('click', delegate('.list-items__status', (e) => {
     changeStatus(e.target.parentNode.parentNode.id);
+    render(tasks);
 }))
 
 list.addEventListener('click', delegate('span.list-items__description', (e) => {
     changeStatus(e.target.parentNode.parentNode.id);
+    render(tasks);
 }))
 
 
