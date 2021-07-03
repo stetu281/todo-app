@@ -10,10 +10,13 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
     }
 })
 
+
+//variablen
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
 
+//Wenns tasks im localstorage vorhanden sind diese holen und rendern
 let storage = localStorage.getItem('tasks');
 if(storage) {
     tasks = JSON.parse(storage);
@@ -39,6 +42,7 @@ function render(tasks) {
     }
 };
 
+//Funktion Wenn input leer alert ausgeben sonst Objekt erstellen und ins Tasks Array pushen.
 function addItem() {
     if(taskInput.value === '') {
         alert('Leer');
@@ -51,11 +55,14 @@ function addItem() {
     };
 };
 
+
+//Funktion Tasks im localstorage speichern
 function setLocalstorage(tasks) {
     let json = JSON.stringify(tasks);
     localStorage.setItem('tasks', json);
 }
 
+//Funktion zum Status im Objekt ändern
 function changeStatus(id) {
     console.log(id)
     tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
