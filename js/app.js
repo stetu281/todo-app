@@ -101,3 +101,12 @@ list.addEventListener('click', delegate('img.list-items__close', (e) => {
     render(tasks);
 }));
 
+//Erledigte löschen
+document.querySelector('.clear__button').addEventListener('click', () => {
+    tasks = tasks.filter(task => task.checked === false);
+    setLocalstorage(tasks);
+    render(tasks);
+})
+
+
+
