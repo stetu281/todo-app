@@ -33,18 +33,14 @@ function render(tasks) {
         li.innerHTML = `
             <label class="list-items__checkbox-label">
                 <input type="checkbox" class="list-items__checkbox" ${task.checked ? 'checked' : ''}>
-                <div class="list-items__status list-items__status--checked"></div>
+                <span class="list-items__status list-items__status--checked"></span>
                 <span class="list-items__description list-items__description--done">${task.task}</span>
             </label>
             <img class="list-items__close" src="images/icon-cross.svg" alt="">
         `;
         list.appendChild(li);
     }
-
-    //Anzahl nicht erledigter Tasks anzeigen
-    let doneTasks = tasks.filter(task => task.checked === false);
-    document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;
-    
+    remainingItemsInfo();
 };
 
 //Funktion Wenn input leer alert ausgeben sonst Objekt erstellen und ins Tasks Array pushen.
@@ -68,27 +64,33 @@ function setLocalstorage(tasks) {
 }
 
 //Funktion zum Status im Objekt ändern
-function changeStatus(id) {
+function toggleStatus(id) {
     tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
     setLocalstorage(tasks);
 }
 
+//Funktion zum zählen und anzeigen nicht erledigter tasks
+function remainingItemsInfo() {
+    let doneTasks = tasks.filter(task => task.checked === false);
+    document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;    
+}
+
 //Checked status im objekt ändern
 list.addEventListener('click', delegate('.list-items__status', (e) => {
-    changeStatus(e.target.parentNode.parentNode.id);
-    render(tasks);
+    toggleStatus(e.target.parentNode.parentNode.id);
+    remainingItemsInfo();
 }))
 
 list.addEventListener('click', delegate('span.list-items__description', (e) => {
-    changeStatus(e.target.parentNode.parentNode.id);
-    render(tasks);
+    toggleStatus(e.target.parentNode.parentNode.id);
+    remainingItemsInfo();
 }))
 
 
 //Task zur Liste hinzufügen
 document.querySelector('.create-item__button').addEventListener('click', addItem)
 taskInput.addEventListener('keyup', (e) => {
-    if(e.keyCode === 13) {
+    if(e.key === 'Enter') {
         addItem();
     };
 });
