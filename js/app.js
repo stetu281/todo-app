@@ -31,7 +31,7 @@ function render(tasks) {
 
     for(let [index, task] of tasks.entries()) {
         const li = document.createElement('li');
-        li.id = index;
+        li.dataset.index = index;
         li.classList = 'list-items__item';
         li.innerHTML = `
             <label class="list-items__checkbox-label">
@@ -59,7 +59,6 @@ function addItem() {
     };
 };
 
-
 //Funktion Tasks im localstorage speichern
 function setLocalstorage(tasks) {
     let json = JSON.stringify(tasks);
@@ -86,15 +85,14 @@ function filter(bool) {
 
 //Checked status im objekt ändern
 list.addEventListener('click', delegate('.list-items__status', (e) => {
-    toggleStatus(e.target.parentNode.parentNode.id);
+    toggleStatus(e.target.parentNode.parentNode.dataset.index);
     remainingItemsInfo();
 }))
 
 list.addEventListener('click', delegate('span.list-items__description', (e) => {
-    toggleStatus(e.target.parentNode.parentNode.id);
+    toggleStatus(e.target.parentNode.parentNode.dataset.index);
     remainingItemsInfo();
 }))
-
 
 //Task zur Liste hinzufügen
 document.querySelector('.create-item__button').addEventListener('click', addItem)
@@ -107,7 +105,7 @@ taskInput.addEventListener('keyup', (e) => {
 //tasks löschen
 list.addEventListener('click', delegate('img.list-items__close', (e) => {
     removeElement(e.target.parentNode);
-    tasks.splice(e.target.parentNode.id, 1);
+    tasks.splice(e.target.parentNode.dataset.index, 1);
     setLocalstorage(tasks);
     render(tasks);
 }));
@@ -137,7 +135,3 @@ document.querySelector('.clear__filters').addEventListener('click', delegate('.c
         e.target.classList.add('clear__filter--active');
     }
 }))
-
-
-
-
