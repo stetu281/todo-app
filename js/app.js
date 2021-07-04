@@ -108,5 +108,17 @@ document.querySelector('.clear__button').addEventListener('click', () => {
     render(tasks);
 })
 
+//Liste filtern
+document.querySelector('.clear__filters').addEventListener('click', delegate('.clear__filter', (e) => {
+    if(e.target.innerHTML === 'Completed') {
+        let completed = tasks.filter(task => task.checked === false);
+        render(completed);
+    } else if(e.target.innerHTML === 'Active') {
+        let active = tasks.filter(task => task.checked === true);
+        render(active);
+    } else {
+        render(tasks);
+    }
+}))
 
 
