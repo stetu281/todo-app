@@ -15,12 +15,15 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
+const exampleTask = [{task: "Example Task", checked: true}];
 
 //Wenns tasks im localstorage vorhanden sind diese holen und rendern
 let storage = localStorage.getItem('tasks');
 if(storage) {
     tasks = JSON.parse(storage);
     render(tasks);
+} else {
+    render(exampleTask);
 }
 
 function render(tasks) {
@@ -75,6 +78,12 @@ function remainingItemsInfo() {
     document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;    
 }
 
+//Funktion zum filtern nach true oder false
+function filter(bool) {
+    let filtered = tasks.filter(task => task.checked === bool);
+    render(filtered);
+}
+
 //Checked status im objekt ändern
 list.addEventListener('click', delegate('.list-items__status', (e) => {
     toggleStatus(e.target.parentNode.parentNode.id);
@@ -110,17 +119,25 @@ document.querySelector('.clear__button').addEventListener('click', () => {
     render(tasks);
 })
 
-//Liste filtern
+//Liste filtern / button active state ändern
 document.querySelector('.clear__filters').addEventListener('click', delegate('.clear__filter', (e) => {
+    const buttons = document.querySelectorAll('.clear__filter');
+    for(let button of buttons) {
+        button.classList.remove('clear__filter--active');
+    }
+
     if(e.target.innerHTML === 'Completed') {
-        let completed = tasks.filter(task => task.checked === false);
-        render(completed);
+        filter(false);
+        e.target.classList.add('clear__filter--active');
     } else if(e.target.innerHTML === 'Active') {
-        let active = tasks.filter(task => task.checked === true);
-        render(active);
+        filter(true);
+        e.target.classList.add('clear__filter--active');
     } else {
         render(tasks);
+        e.target.classList.add('clear__filter--active');
     }
 }))
+
+
 
 
