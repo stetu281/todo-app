@@ -46,11 +46,13 @@ function render(tasks) {
     remainingItemsInfo();
 };
 
-//Funktion Wenn input leer alert ausgeben sonst Objekt erstellen und ins Tasks Array pushen.
+//Funktion Wenn input leer warning klasse hinzufügen sonst Objekt erstellen und ins Tasks Array pushen.
 function addItem() {
     if(taskInput.value === '') {
-        alert('Leer');
+        taskInput.classList.add('create-item__input--warning');
+        taskInput.placeholder = 'Please fill in this field...';
     } else {
+        taskInput.classList.remove('create-item__input--warning');
         const input = {task: taskInput.value, checked: false};
         taskInput.value = '';
         tasks.push(input);

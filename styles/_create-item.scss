@@ -39,5 +39,10 @@
         flex-grow: 1;
         margin: 0 15px;
         padding: 0.5rem;
+
+        &--warning {
+            border: 1px solid #ff4545;
+            border-radius: 5px;
+        }
     }
 }
