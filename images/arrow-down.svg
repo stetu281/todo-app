@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="circle-arrow-down">
+<g id="Icon/circle-arrow-up">
+<g id="Icon/arrow-down">
+<path id="Path 2" d="M12 7.5L12 16.5" stroke="#494C6B" stroke-linecap="round"/>
+<path id="Path 3" d="M9 13.5L12 16.5L15 13.5" stroke="#494C6B" stroke-linecap="round"/>
+</g>
+<path id="Oval" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" stroke="#494C6B"/>
+</g>
+</g>
+</svg>

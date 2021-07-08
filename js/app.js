@@ -39,7 +39,11 @@ function render(tasks) {
                 <span class="list-items__status list-items__status--checked"></span>
                 <span class="list-items__description list-items__description--done">${task.task}</span>
             </label>
-            <img class="list-items__close" src="images/icon-cross.svg" alt="">
+            <div class="list-items__control">
+                <img class="list-items__img list-items__img--up" src="images/arrow-up.svg" alt="">
+                <img class="list-items__img list-items__img--down" src="images/arrow-down.svg" alt="">
+                <img class="list-items__img list-items__img--close" src="images/icon-cross.svg" alt="">
+            </div>
         `;
         list.appendChild(li);
     }
@@ -85,6 +89,13 @@ function filter(bool) {
     render(filtered);
 }
 
+//Funktion zum verschieben der elemente
+function moveIndex(arr, fromIndex, toIndex) {
+    let element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+}
+
 //Checked status im objekt ändern
 list.addEventListener('click', delegate('.list-items__status', (e) => {
     toggleStatus(e.target.parentNode.parentNode.dataset.index);
@@ -105,12 +116,34 @@ taskInput.addEventListener('keyup', (e) => {
 });
 
 //tasks löschen
-list.addEventListener('click', delegate('img.list-items__close', (e) => {
-    removeElement(e.target.parentNode);
-    tasks.splice(e.target.parentNode.dataset.index, 1);
+list.addEventListener('click', delegate('img.list-items__img--close', (e) => {
+    removeElement(e.target.parentNode.parentNode);
+    tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
     setLocalstorage(tasks);
     render(tasks);
 }));
+
+//tasks nach oben verschieben, wenn an erster stelle an letze stelle verschieben
+list.addEventListener('click', delegate('img.list-items__img--up', (e) => {
+    let index = parseInt(e.target.parentNode.parentNode.dataset.index);
+    if(index === 0) {
+        moveIndex(tasks, index, list.length - 1);
+    }
+    moveIndex(tasks, index, index - 1);
+    setLocalstorage(tasks);
+    render(tasks);
+}))
+
+//tasks nach unten verschieben, wenn an letzter stelle an erste stelle verschieben
+list.addEventListener('click', delegate('img.list-items__img--down', (e) => {
+    let index = parseInt(e.target.parentNode.parentNode.dataset.index);
+    if(index === tasks.length - 1) {
+        moveIndex(tasks, index, 0);
+    }
+    moveIndex(tasks, index, index + 1);
+    setLocalstorage(tasks);
+    render(tasks);
+}))
 
 //Erledigte löschen
 document.querySelector('.clear__button').addEventListener('click', () => {
