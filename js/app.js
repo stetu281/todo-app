@@ -160,10 +160,10 @@ document.querySelector('.clear__filters').addEventListener('click', delegate('.c
     }
 
     if(e.target.innerHTML === 'Completed') {
-        filter(false);
+        filter(true);
         e.target.classList.add('clear__filter--active');
     } else if(e.target.innerHTML === 'Active') {
-        filter(true);
+        filter(false);
         e.target.classList.add('clear__filter--active');
     } else {
         render(tasks);
