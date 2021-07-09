@@ -15,7 +15,7 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
-const exampleTask = [{task: "Example Task", checked: true}];
+const exampleTask = [{task: "Example Task 1", checked: true}, {task: "Example Task 2", checked: false}];
 
 //Wenns tasks im localstorage vorhanden sind diese holen und rendern
 let storage = localStorage.getItem('tasks');
@@ -60,21 +60,28 @@ function addItem() {
         const input = {task: taskInput.value, checked: false};
         taskInput.value = '';
         tasks.push(input);
-        setLocalstorage(tasks);
+        save(tasks);
         render(tasks);
     };
 };
 
 //Funktion Tasks im localstorage speichern
-function setLocalstorage(tasks) {
+function save(tasks) {
     let json = JSON.stringify(tasks);
     localStorage.setItem('tasks', json);
+    fetch('http://localhost:3002/todos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tasks),
+    })
 }
 
 //Funktion zum Status im Objekt ändern
 function toggleStatus(id) {
     tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
-    setLocalstorage(tasks);
+    save(tasks);
 }
 
 //Funktion zum zählen und anzeigen nicht erledigter tasks
@@ -119,7 +126,7 @@ taskInput.addEventListener('keyup', (e) => {
 list.addEventListener('click', delegate('img.list-items__img--close', (e) => {
     removeElement(e.target.parentNode.parentNode);
     tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
-    setLocalstorage(tasks);
+    save(tasks);
     render(tasks);
 }));
 
@@ -130,7 +137,7 @@ list.addEventListener('click', delegate('img.list-items__img--up', (e) => {
         moveIndex(tasks, index, list.length - 1);
     }
     moveIndex(tasks, index, index - 1);
-    setLocalstorage(tasks);
+    save(tasks);
     render(tasks);
 }))
 
@@ -141,14 +148,14 @@ list.addEventListener('click', delegate('img.list-items__img--down', (e) => {
         moveIndex(tasks, index, 0);
     }
     moveIndex(tasks, index, index + 1);
-    setLocalstorage(tasks);
+    save(tasks);
     render(tasks);
 }))
 
 //Erledigte löschen
 document.querySelector('.clear__button').addEventListener('click', () => {
     tasks = tasks.filter(task => task.checked === false);
-    setLocalstorage(tasks);
+    save(tasks);
     render(tasks);
 })
 
