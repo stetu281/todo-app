@@ -10,20 +10,39 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
     }
 })
 
+//load funktion aufrufen
+load()
 
 //variablen
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
-const exampleTask = [{task: "Example Task 1", checked: true}, {task: "Example Task 2", checked: false}];
+const exampleTasks = [{task: "Example Task 1", checked: true}, {task: "Example Task 2", checked: false}];
 
-//Wenns tasks im localstorage vorhanden sind diese holen und rendern
-let storage = localStorage.getItem('tasks');
-if(storage) {
-    tasks = JSON.parse(storage);
-    render(tasks);
-} else {
-    render(exampleTask);
+
+//Funktion zum holen der tasks. Wenn auf server, diese laden, sonst localstorage laden. Wenn beides nicht vorhanden exampleTasks laden.
+function load() {
+    fetch('http://localhost:3002/todos')
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("HTTP error, status = " + response.status);
+        }
+        return response.json();
+    })
+    .then(function(tasksFromServer) {
+        if(tasksFromServer.length != 0) {
+            tasks = tasksFromServer;
+            render(tasks);
+        } else {
+            let storage = localStorage.getItem('tasks');
+            if(storage) {
+                tasks = JSON.parse(storage);
+                render(tasks);
+            } else {
+                render(exampleTasks)
+            }
+        }
+    })
 }
 
 function render(tasks) {
@@ -65,7 +84,7 @@ function addItem() {
     };
 };
 
-//Funktion Tasks im localstorage speichern
+//Funktion Tasks speichern
 function save(tasks) {
     let json = JSON.stringify(tasks);
     localStorage.setItem('tasks', json);
