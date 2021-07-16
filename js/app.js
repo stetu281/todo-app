@@ -15,16 +15,9 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
-const exampleTask = [{task: "Example Task", checked: true}];
+const exampleTask = [{task: "Example Task", checked: true}, {task: "Example Task2", checked: false}];
 
-//Wenns tasks im localstorage vorhanden sind diese holen und rendern
-let storage = localStorage.getItem('tasks');
-if(storage) {
-    tasks = JSON.parse(storage);
-    render(tasks);
-} else {
-    render(exampleTask);
-}
+getTasks();
 
 function render(tasks) {
     list.innerHTML = '';
@@ -60,13 +53,44 @@ function addItem() {
         const input = {task: taskInput.value, checked: false};
         taskInput.value = '';
         tasks.push(input);
-        setLocalstorage(tasks);
+        saveTasks(tasks);
         render(tasks);
     };
 };
 
-//Funktion Tasks im localstorage speichern
-function setLocalstorage(tasks) {
+//Funktion Tasks vom Server holen
+async function getTasks() {
+    try {
+        const response = await fetch('http://localhost:3002/todos');
+        const todos = await response.json();
+        render(todos);    
+    } catch(error) {
+        let storage = localStorage.getItem('tasks');
+        if(storage) {
+            tasks = JSON.parse(storage);
+            render(tasks);
+        } else {
+            render(exampleTask);
+        }
+    }
+
+}
+
+//Funktion Tasks auf Server und im localstorage speichern
+async function saveTasks(tasks) {
+
+    try {
+        const response = await fetch('http://localhost:3002/todos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(tasks),
+        })
+        tasks = await response.json();
+        console.log(tasks)
+    } catch(error) {
+        console.error('Error:', error);
+    }
+
     let json = JSON.stringify(tasks);
     localStorage.setItem('tasks', json);
 }
@@ -74,7 +98,7 @@ function setLocalstorage(tasks) {
 //Funktion zum Status im Objekt ändern
 function toggleStatus(id) {
     tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
-    setLocalstorage(tasks);
+    saveTasks(tasks);
 }
 
 //Funktion zum zählen und anzeigen nicht erledigter tasks
@@ -119,7 +143,7 @@ taskInput.addEventListener('keyup', (e) => {
 list.addEventListener('click', delegate('img.list-items__img--close', (e) => {
     removeElement(e.target.parentNode.parentNode);
     tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
-    setLocalstorage(tasks);
+    saveTasks(tasks);
     render(tasks);
 }));
 
@@ -130,7 +154,7 @@ list.addEventListener('click', delegate('img.list-items__img--up', (e) => {
         moveIndex(tasks, index, tasks.length - 1);
     }
     moveIndex(tasks, index, index - 1);
-    setLocalstorage(tasks);
+    saveTasks(tasks);
     render(tasks);
 }))
 
@@ -141,14 +165,14 @@ list.addEventListener('click', delegate('img.list-items__img--down', (e) => {
         moveIndex(tasks, index, 0);
     }
     moveIndex(tasks, index, index + 1);
-    setLocalstorage(tasks);
+    saveTasks(tasks);
     render(tasks);
 }))
 
 //Erledigte löschen
 document.querySelector('.clear__button').addEventListener('click', () => {
     tasks = tasks.filter(task => task.checked === false);
-    setLocalstorage(tasks);
+    saveTasks(tasks);
     render(tasks);
 })
 
