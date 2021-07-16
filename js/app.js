@@ -10,7 +10,6 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
     }
 })
 
-//load funktion aufrufen
 load()
 
 //variablen
@@ -29,18 +28,17 @@ function load() {
         }
         return response.json();
     })
-    .then(function(tasksFromServer) {
-        if(tasksFromServer.length != 0) {
-            tasks = tasksFromServer;
+    .then(todos => {
+        tasks = todos;
+        render(tasks);
+    })
+    .catch(error => {
+        let storage = localStorage.getItem('tasks');
+        if(storage) {
+            tasks = JSON.parse(storage);
             render(tasks);
         } else {
-            let storage = localStorage.getItem('tasks');
-            if(storage) {
-                tasks = JSON.parse(storage);
-                render(tasks);
-            } else {
-                render(exampleTasks)
-            }
+            render(exampleTasks);
         }
     })
 }
@@ -153,9 +151,9 @@ list.addEventListener('click', delegate('img.list-items__img--close', (e) => {
 list.addEventListener('click', delegate('img.list-items__img--up', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
     if(index === 0) {
-        moveIndex(tasks, index, list.length - 1);
+        moveIndex(tasks, index, tasks.length - 1);
     }
-    moveIndex(tasks, index, index - 1);
+    moveIndex(tasks, index, index);
     save(tasks);
     render(tasks);
 }))
