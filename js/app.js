@@ -15,7 +15,7 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
-const exampleTask = [{task: "Example Task", checked: true}, {task: "Example Task2", checked: false}];
+const exampleTask = [{task: "Example Task", checked: true}];
 
 await getTasks();
 
@@ -58,12 +58,23 @@ function addItem() {
     };
 };
 
-//Funktion Tasks vom Server holen
+//Funktion Tasks vom Server, localhost oder exampleTasks variable holen
 async function getTasks() {
     
     Tools.get('http://localhost:3002/todos', function(response) {
-        tasks = response;
-        render(tasks);
+        if(!response || response.length === 0) {
+            let json = localStorage.getItem('tasks');
+            if(json) {
+                tasks = JSON.parse(json);
+                render(tasks);
+            } else {
+                tasks = exampleTask;
+                render(tasks);
+            }
+        } else {
+            render(response);
+        }
+        
     });
 
 }
@@ -75,8 +86,13 @@ async function saveTasks(tasks) {
         
     });
 
-/*     let json = JSON.stringify(tasks);
-    localStorage.setItem('tasks', json); */
+    if(tasks.length === 0) {
+        localStorage.clear();
+    } else {
+    let json = JSON.stringify(tasks);
+    localStorage.setItem('tasks', json);
+    }
+
 }
 
 //Funktion zum Status im Objekt ändern

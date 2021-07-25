@@ -16,7 +16,7 @@ export const get = async (url, callback) => {
         const obj = await response.json();
         callback(obj);
     } catch(error) {
-        console.error('Error:', error);
+        callback(false);
     }
 }
 
@@ -27,7 +27,6 @@ export const post = async (url, object, callback) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(object),
         })
-        console.log(response)
         let antw = response.json();
         callback(antw)
     } catch(error) {
