@@ -1,4 +1,4 @@
-import { removeElement, delegate } from './tools.js';
+import * as Tools from './tools.js';
 
 //light und darkmode umschalten
 document.querySelector('.header__button').addEventListener('click', (e) => {
@@ -17,7 +17,7 @@ const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
 const exampleTask = [{task: "Example Task", checked: true}, {task: "Example Task2", checked: false}];
 
-getTasks();
+await getTasks();
 
 function render(tasks) {
     list.innerHTML = '';
@@ -60,39 +60,23 @@ function addItem() {
 
 //Funktion Tasks vom Server holen
 async function getTasks() {
-    try {
-        const response = await fetch('http://localhost:3002/todos');
-        const todos = await response.json();
-        render(todos);    
-    } catch(error) {
-        let storage = localStorage.getItem('tasks');
-        if(storage) {
-            tasks = JSON.parse(storage);
-            render(tasks);
-        } else {
-            render(exampleTask);
-        }
-    }
+    
+    Tools.get('http://localhost:3002/todos', function(response) {
+        tasks = response;
+        render(tasks);
+    });
 
 }
 
 //Funktion Tasks auf Server und im localstorage speichern
 async function saveTasks(tasks) {
 
-    try {
-        const response = await fetch('http://localhost:3002/todos', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(tasks),
-        })
-        tasks = await response.json();
-        console.log(tasks)
-    } catch(error) {
-        console.error('Error:', error);
-    }
+    Tools.post('http://localhost:3002/todos', tasks, function(response) {
+        
+    });
 
-    let json = JSON.stringify(tasks);
-    localStorage.setItem('tasks', json);
+/*     let json = JSON.stringify(tasks);
+    localStorage.setItem('tasks', json); */
 }
 
 //Funktion zum Status im Objekt ändern
@@ -121,12 +105,12 @@ function moveIndex(arr, fromIndex, toIndex) {
 }
 
 //Checked status im objekt ändern
-list.addEventListener('click', delegate('.list-items__status', (e) => {
+list.addEventListener('click', Tools.delegate('.list-items__status', (e) => {
     toggleStatus(e.target.parentNode.parentNode.dataset.index);
     remainingItemsInfo();
 }))
 
-list.addEventListener('click', delegate('span.list-items__description', (e) => {
+list.addEventListener('click', Tools.delegate('span.list-items__description', (e) => {
     toggleStatus(e.target.parentNode.parentNode.dataset.index);
     remainingItemsInfo();
 }))
@@ -140,15 +124,15 @@ taskInput.addEventListener('keyup', (e) => {
 });
 
 //tasks löschen
-list.addEventListener('click', delegate('img.list-items__img--close', (e) => {
-    removeElement(e.target.parentNode.parentNode);
+list.addEventListener('click', Tools.delegate('img.list-items__img--close', (e) => {
+    Tools.removeElement(e.target.parentNode.parentNode);
     tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
     saveTasks(tasks);
     render(tasks);
 }));
 
 //tasks nach oben verschieben, wenn an erster stelle an letze stelle verschieben
-list.addEventListener('click', delegate('img.list-items__img--up', (e) => {
+list.addEventListener('click', Tools.delegate('img.list-items__img--up', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
     if(index === 0) {
         moveIndex(tasks, index, tasks.length - 1);
@@ -159,7 +143,7 @@ list.addEventListener('click', delegate('img.list-items__img--up', (e) => {
 }))
 
 //tasks nach unten verschieben, wenn an letzter stelle an erste stelle verschieben
-list.addEventListener('click', delegate('img.list-items__img--down', (e) => {
+list.addEventListener('click', Tools.delegate('img.list-items__img--down', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
     if(index === tasks.length - 1) {
         moveIndex(tasks, index, 0);
@@ -177,7 +161,7 @@ document.querySelector('.clear__button').addEventListener('click', () => {
 })
 
 //Liste filtern / button active state ändern
-document.querySelector('.clear__filters').addEventListener('click', delegate('.clear__filter', (e) => {
+document.querySelector('.clear__filters').addEventListener('click', Tools.delegate('.clear__filter', (e) => {
     const buttons = document.querySelectorAll('.clear__filter');
     for(let button of buttons) {
         button.classList.remove('clear__filter--active');
