@@ -13,25 +13,24 @@
 </head>
 <body>
   <main>
-
     <header class="header">
       <h1 class="header__title">TODO</h1>
       <button class="header__button">
         <img class="header__icon" src="images/icon-sun.svg">  
-      </button>  
-      
+      </button>       
     </header>
-
+    <div class="loading loading--hide">
+      <img src="./images/spinner.svg" alt="" class="loading__img loading__img--animate">
+      <p class="loading__text">loading...</p>
+    </div>
     <div class="create-item">
       <div class="create-item__status"></div>
       <input type="text" class="create-item__input" placeholder="Create a new todo...">
       <button class="create-item__button">Add to list</button>
     </div>
-
     <ul class="list-items">
 
     </ul>
-
     <div class="clear">
       <p class="clear__stats"></p>
       <div class="clear__filters">
