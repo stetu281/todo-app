@@ -14,6 +14,7 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
 //variablen
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
+const loading = document.querySelector('.loading');
 let tasks = [];
 const exampleTask = [{task: "Example Task", checked: true}];
 
@@ -60,6 +61,7 @@ function addItem() {
 
 //Funktion Tasks vom Server, localhost oder exampleTasks variable holen
 async function getTasks() {
+    loading.classList.toggle('loading--hide');
     
     await Tools.get('http://localhost:3002/todos', function(response) {
         if(!response || response.length === 0) {
@@ -67,13 +69,16 @@ async function getTasks() {
             if(json) {
                 tasks = JSON.parse(json);
                 render(tasks);
+                loading.classList.toggle('loading--hide');
             } else {
                 tasks = exampleTask;
                 render(tasks);
+                loading.classList.toggle('loading--hide');
             }
         } else {
             tasks = response;
             render(tasks);
+            loading.classList.toggle('loading--hide');
         }       
     });
 }
