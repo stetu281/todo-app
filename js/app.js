@@ -60,14 +60,8 @@ function addItem() {
 
 //Funktion Tasks vom Server, localhost oder exampleTasks variable holen
 async function getTasks() {
-
-    let json = localStorage.getItem('tasks');
-    if(json) {
-        tasks = JSON.parse(json);
-        render(tasks);
-    }
     
-/*     Tools.get('http://localhost:3002/todos', function(response) {
+    await Tools.get('http://localhost:3002/todos', function(response) {
         if(!response || response.length === 0) {
             let json = localStorage.getItem('tasks');
             if(json) {
@@ -78,31 +72,25 @@ async function getTasks() {
                 render(tasks);
             }
         } else {
-            render(response);
-        }
-        
-    }); */
-
+            tasks = response;
+            render(tasks);
+        }       
+    });
 }
 
 //Funktion Tasks auf Server und im localstorage speichern
 async function saveTasks(tasks) {
 
-    let json = JSON.stringify(tasks);
-    localStorage.setItem('tasks', json);
-
-/*     Tools.post('http://localhost:3002/todos', tasks, function(response) {
-        let antw = response;
-        console.log(antw)
-    });
+    await Tools.post('http://localhost:3002/todos', tasks, function(response) {
+        console.log(response)
+    })
 
     if(tasks.length === 0) {
         localStorage.clear();
     } else {
-    let json = JSON.stringify(tasks);
-    localStorage.setItem('tasks', json);
-    } */
-
+        let json = JSON.stringify(tasks);
+        localStorage.setItem('tasks', json);
+    }
 }
 
 //Funktion zum Status im Objekt ändern
