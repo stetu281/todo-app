@@ -60,8 +60,14 @@ function addItem() {
 
 //Funktion Tasks vom Server, localhost oder exampleTasks variable holen
 async function getTasks() {
+
+    let json = localStorage.getItem('tasks');
+    if(json) {
+        tasks = JSON.parse(json);
+        render(tasks);
+    }
     
-    Tools.get('http://localhost:3002/todos', function(response) {
+/*     Tools.get('http://localhost:3002/todos', function(response) {
         if(!response || response.length === 0) {
             let json = localStorage.getItem('tasks');
             if(json) {
@@ -75,15 +81,19 @@ async function getTasks() {
             render(response);
         }
         
-    });
+    }); */
 
 }
 
 //Funktion Tasks auf Server und im localstorage speichern
 async function saveTasks(tasks) {
 
-    Tools.post('http://localhost:3002/todos', tasks, function(response) {
-        
+    let json = JSON.stringify(tasks);
+    localStorage.setItem('tasks', json);
+
+/*     Tools.post('http://localhost:3002/todos', tasks, function(response) {
+        let antw = response;
+        console.log(antw)
     });
 
     if(tasks.length === 0) {
@@ -91,7 +101,7 @@ async function saveTasks(tasks) {
     } else {
     let json = JSON.stringify(tasks);
     localStorage.setItem('tasks', json);
-    }
+    } */
 
 }
 
@@ -142,7 +152,7 @@ taskInput.addEventListener('keyup', (e) => {
 //tasks löschen
 list.addEventListener('click', Tools.delegate('img.list-items__img--close', (e) => {
     Tools.removeElement(e.target.parentNode.parentNode);
-    tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
+    let arr = tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
     saveTasks(tasks);
     render(tasks);
 }));
@@ -150,10 +160,9 @@ list.addEventListener('click', Tools.delegate('img.list-items__img--close', (e) 
 //tasks nach oben verschieben, wenn an erster stelle an letze stelle verschieben
 list.addEventListener('click', Tools.delegate('img.list-items__img--up', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
-    if(index === 0) {
-        moveIndex(tasks, index, tasks.length - 1);
+    if(index !== 0) {
+        moveIndex(tasks, index, index - 1);
     }
-    moveIndex(tasks, index, index - 1);
     saveTasks(tasks);
     render(tasks);
 }))
@@ -161,10 +170,9 @@ list.addEventListener('click', Tools.delegate('img.list-items__img--up', (e) => 
 //tasks nach unten verschieben, wenn an letzter stelle an erste stelle verschieben
 list.addEventListener('click', Tools.delegate('img.list-items__img--down', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
-    if(index === tasks.length - 1) {
-        moveIndex(tasks, index, 0);
+    if(index !== tasks.length - 1) {
+        moveIndex(tasks, index, index + 1);
     }
-    moveIndex(tasks, index, index + 1);
     saveTasks(tasks);
     render(tasks);
 }))

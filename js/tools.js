@@ -27,8 +27,8 @@ export const post = async (url, object, callback) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(object),
         })
-        let antw = response.json();
-        callback(antw)
+        let antw = await response.json();
+        console.log(antw)
     } catch(error) {
         console.error('Error:', error);
     }
