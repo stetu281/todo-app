@@ -1,4 +1,5 @@
 import * as Tools from './tools.js';
+/* import css from '../styles/main.scss'; */
 
 //light und darkmode umschalten
 document.querySelector('.header__button').addEventListener('click', (e) => {
@@ -18,7 +19,7 @@ const loading = document.querySelector('.loading');
 let tasks = [];
 const exampleTask = [{task: "Example Task", checked: true}];
 
-await getTasks();
+getTasks();
 
 function render(tasks) {
     list.innerHTML = '';
@@ -34,9 +35,9 @@ function render(tasks) {
                 <span class="list-items__description list-items__description--done">${task.task}</span>
             </label>
             <div class="list-items__control">
-                <img class="list-items__img list-items__img--up" src="images/arrow-up.svg" alt="">
-                <img class="list-items__img list-items__img--down" src="images/arrow-down.svg" alt="">
-                <img class="list-items__img list-items__img--close" src="images/icon-cross.svg" alt="">
+                <img class="list-items__img list-items__img--up" src="src/images/arrow-up.svg" alt="">
+                <img class="list-items__img list-items__img--down" src="src/images/arrow-down.svg" alt="">
+                <img class="list-items__img list-items__img--close" src="src/images/icon-cross.svg" alt="">
             </div>
         `;
         list.appendChild(li);
