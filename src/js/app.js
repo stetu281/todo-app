@@ -1,5 +1,5 @@
 import * as Tools from './tools.js';
-/* import css from '../styles/main.scss'; */
+import css from '../scss/main.scss';
 
 //light und darkmode umschalten
 document.querySelector('.header__button').addEventListener('click', (e) => {
