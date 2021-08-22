@@ -1,9 +1,10 @@
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
 
 module.exports = {
-    mode: "development",
     entry: "./src/js/app.js",
+    plugins: [new HTMLWebpackPlugin({
+        template: "./src/index.html"
+    })],
     module: {
         rules: [{
             test: /\.scss$/,
@@ -13,12 +14,5 @@ module.exports = {
                 'sass-loader'
             ]
         }]
-    },
-    plugins: [new HTMLWebpackPlugin({
-        template: "./src/index.html"
-    })],
-    output: {
-        filename: "main.[contenthash].js",
-        path: path.resolve(__dirname, "dist"),
     },
 };
