@@ -1,14 +1,19 @@
 import * as Tools from './tools.js';
 import css from '../scss/main.scss';
-console.log("hallo")
+import arrowUp from '../images/arrow-up.svg'
+import arrowDown from '../images/arrow-down.svg'
+import del from '../images/icon-cross.svg'
+import spinner from '../images/spinner.svg'
+import sun from '../images/icon-sun.svg'
+import moon from '../images/icon-moon.svg'
 
 //light und darkmode umschalten
 document.querySelector('.header__button').addEventListener('click', (e) => {
     document.body.classList.toggle('light-mode');
     if(document.body.classList.contains('light-mode')) {
-        e.target.src = "images/icon-moon.svg";
+        e.target.src = "./icon-moon.svg";
     } else {
-        e.target.src = "images/icon-sun.svg";
+        e.target.src = "./icon-sun.svg";
     }
 })
 
@@ -36,9 +41,9 @@ function render(tasks) {
                 <span class="list-items__description list-items__description--done">${task.task}</span>
             </label>
             <div class="list-items__control">
-                <img class="list-items__img list-items__img--up" src="src/images/arrow-up.svg" alt="">
-                <img class="list-items__img list-items__img--down" src="src/images/arrow-down.svg" alt="">
-                <img class="list-items__img list-items__img--close" src="src/images/icon-cross.svg" alt="">
+                <img class="list-items__img list-items__img--up" src="${arrowUp}" alt="">
+                <img class="list-items__img list-items__img--down" src="${arrowDown}" alt="">
+                <img class="list-items__img list-items__img--close" src="${del}" alt="">
             </div>
         `;
         list.appendChild(li);
