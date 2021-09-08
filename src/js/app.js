@@ -36,9 +36,9 @@ function render(tasks) {
         li.classList = 'list-items__item';
         li.innerHTML = `
             <label class="list-items__checkbox-label">
-                <input type="checkbox" class="list-items__checkbox" ${task.checked ? 'checked' : ''}>
+                <input type="checkbox" class="list-items__checkbox" ${task.completed ? 'checked' : ''}>
                 <span class="list-items__status list-items__status--checked"></span>
-                <span class="list-items__description list-items__description--done">${task.task}</span>
+                <span class="list-items__description list-items__description--done">${task.title}</span>
             </label>
             <div class="list-items__control">
                 <img class="list-items__img list-items__img--up" src="${arrowUp}" alt="">
@@ -70,7 +70,7 @@ function addItem() {
 async function getTasks() {
     loading.classList.toggle('loading--hide');
     
-    await Tools.get('http://localhost:3002/todos', function(response) {
+    await Tools.get('http://localhost:3000/todos', function(response) {
         if(!response || response.length === 0) {
             let json = localStorage.getItem('tasks');
             if(json) {
