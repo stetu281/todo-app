@@ -1,6 +1,6 @@
 const todos = [
     { "title": "Auto saugen", "completed": 0 },
-    { "title": "Steuererklärung machen", "completed": 0 },
+    { "title": "Steuererklärung machen", "completed": 1 },
     { "title": "Kleider waschen", "completed": 0 }
 ];
 
@@ -12,8 +12,19 @@ app.use(cors());
 const port = 3000;
 
 app.get('/todos', (req, res) => {
-    res.send(todos);
+
+    const status = parseInt(req.query.completed);
+
+    if (status === 1) {
+        res.send(todos.filter(todo => todo.completed === 1));
+    } else if (status === 0) {
+        res.send(todos.filter(todo => todo.completed === 0));
+    } else {
+        res.send(todos);
+    }
+    
 })
+
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);

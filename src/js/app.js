@@ -25,7 +25,7 @@ const loading = document.querySelector('.loading');
 let tasks = [];
 const exampleTask = [{task: "Example Task", checked: true}];
 
-getTasks();
+getTasks('http://localhost:3000/todos');
 
 function render(tasks) {
     list.innerHTML = '';
@@ -67,10 +67,10 @@ function addItem() {
 };
 
 //Funktion Tasks vom Server, localhost oder exampleTasks variable holen
-async function getTasks() {
+async function getTasks(url) {
     loading.classList.toggle('loading--hide');
     
-    await Tools.get('http://localhost:3000/todos', function(response) {
+    await Tools.get(url, function(response) {
         if(!response || response.length === 0) {
             let json = localStorage.getItem('tasks');
             if(json) {
@@ -115,12 +115,6 @@ function toggleStatus(id) {
 function remainingItemsInfo() {
     let doneTasks = tasks.filter(task => task.checked === false);
     document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;    
-}
-
-//Funktion zum filtern nach true oder false
-function filter(bool) {
-    let filtered = tasks.filter(task => task.checked === bool);
-    render(filtered);
 }
 
 //Funktion zum verschieben der elemente
@@ -192,13 +186,13 @@ document.querySelector('.clear__filters').addEventListener('click', Tools.delega
     }
 
     if(e.target.innerHTML === 'Completed') {
-        filter(true);
+        getTasks('http://localhost:3000/todos?completed=1');
         e.target.classList.add('clear__filter--active');
     } else if(e.target.innerHTML === 'Active') {
-        filter(false);
+        getTasks('http://localhost:3000/todos?completed=0');
         e.target.classList.add('clear__filter--active');
     } else {
-        render(tasks);
+        getTasks('http://localhost:3000/todos');
         e.target.classList.add('clear__filter--active');
     }
 }))
