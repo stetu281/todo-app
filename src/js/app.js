@@ -36,9 +36,9 @@ function render(tasks) {
         li.classList = 'list-items__item';
         li.innerHTML = `
             <label class="list-items__checkbox-label">
-                <input type="checkbox" class="list-items__checkbox" ${task.completed ? 'checked' : ''}>
+                <input type="checkbox" class="list-items__checkbox" ${task.checked ? 'checked' : ''}>
                 <span class="list-items__status list-items__status--checked"></span>
-                <span class="list-items__description list-items__description--done">${task.title}</span>
+                <span class="list-items__description list-items__description--done">${task.task}</span>
             </label>
             <div class="list-items__control">
                 <img class="list-items__img list-items__img--up" src="${arrowUp}" alt="">
@@ -93,7 +93,7 @@ async function getTasks(url) {
 //Funktion Tasks auf Server und im localstorage speichern
 async function saveTasks(tasks) {
 
-    await Tools.post('http://localhost:3002/todos', tasks, function(response) {
+    await Tools.put('http://localhost:3000/todos', tasks, function(response) {
         console.log(response)
     })
 
@@ -186,10 +186,10 @@ document.querySelector('.clear__filters').addEventListener('click', Tools.delega
     }
 
     if(e.target.innerHTML === 'Completed') {
-        getTasks('http://localhost:3000/todos?completed=1');
+        getTasks('http://localhost:3000/todos?checked=1');
         e.target.classList.add('clear__filter--active');
     } else if(e.target.innerHTML === 'Active') {
-        getTasks('http://localhost:3000/todos?completed=0');
+        getTasks('http://localhost:3000/todos?checked=0');
         e.target.classList.add('clear__filter--active');
     } else {
         getTasks('http://localhost:3000/todos');

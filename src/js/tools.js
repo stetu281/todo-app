@@ -20,10 +20,10 @@ export const get = async (url, callback) => {
     }
 }
 
-export const post = async (url, object, callback) => {
+export const put = async (url, object, callback) => {
     try {
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(object),
         })
