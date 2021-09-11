@@ -49,6 +49,20 @@ app.post('/todos', async (req, res) => {
     res.send(todos);
 })
 
+app.put('/todos/:id', async (req, res) => {
+
+    const [result] = await connection.execute(`
+        UPDATE task SET completed = ? WHERE id = ?
+    `, [req.body.completed, req.params.id]);
+
+    const [todos] = await connection.query(`
+        SELECT id, title, completed FROM task WHERE id = ?
+    `, [req.params.id]);
+
+    res.status(201);
+    res.send(todos);
+})
+
 
 const server = app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
