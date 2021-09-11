@@ -61,7 +61,15 @@ app.put('/todos/:id', async (req, res) => {
 
     res.status(201);
     res.send(todos);
-})
+});
+
+app.delete('/todos/:id', async (req, res) => {
+    await connection.execute(`
+        DELETE FROM task WHERE id = ?
+    `, [req.params.id]);
+
+    res.sendStatus(204);
+});
 
 
 const server = app.listen(port, () => {
