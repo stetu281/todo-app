@@ -23,7 +23,7 @@ const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 const loading = document.querySelector('.loading');
 let tasks = [];
-const exampleTask = [{task: "Example Task", checked: true}];
+const exampleTask = [{title: "Example Task", completed: true}];
 
 getTasks();
 
@@ -36,9 +36,9 @@ function render(tasks) {
         li.classList = 'list-items__item';
         li.innerHTML = `
             <label class="list-items__checkbox-label">
-                <input type="checkbox" class="list-items__checkbox" ${task.checked ? 'checked' : ''}>
+                <input type="checkbox" class="list-items__checkbox" ${task.completed ? 'checked' : ''}>
                 <span class="list-items__status list-items__status--checked"></span>
-                <span class="list-items__description list-items__description--done">${task.task}</span>
+                <span class="list-items__description list-items__description--done">${task.title}</span>
             </label>
             <div class="list-items__control">
                 <img class="list-items__img list-items__img--up" src="${arrowUp}" alt="">
@@ -58,7 +58,7 @@ function addItem() {
         taskInput.placeholder = 'Please fill in this field...';
     } else {
         taskInput.classList.remove('create-item__input--warning');
-        const input = {task: taskInput.value, checked: false};
+        const input = {title: taskInput.value, completed: false};
         taskInput.value = '';
         tasks.push(input);
         saveTasks(tasks);
@@ -70,7 +70,7 @@ function addItem() {
 async function getTasks() {
     loading.classList.toggle('loading--hide');
     
-    await Tools.get('http://localhost:3002/todos', function(response) {
+    await Tools.get('http://localhost:3000/todos', function(response) {
         if(!response || response.length === 0) {
             let json = localStorage.getItem('tasks');
             if(json) {
@@ -107,19 +107,19 @@ async function saveTasks(tasks) {
 
 //Funktion zum Status im Objekt ändern
 function toggleStatus(id) {
-    tasks[id].checked === false ? tasks[id].checked = true : tasks[id].checked = false;
+    tasks[id].completed === false ? tasks[id].completed = true : tasks[id].completed = false;
     saveTasks(tasks);
 }
 
 //Funktion zum zählen und anzeigen nicht erledigter tasks
 function remainingItemsInfo() {
-    let doneTasks = tasks.filter(task => task.checked === false);
+    let doneTasks = tasks.filter(task => task.completed === false);
     document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;    
 }
 
 //Funktion zum filtern nach true oder false
 function filter(bool) {
-    let filtered = tasks.filter(task => task.checked === bool);
+    let filtered = tasks.filter(task => task.completed === bool);
     render(filtered);
 }
 
@@ -179,7 +179,7 @@ list.addEventListener('click', Tools.delegate('img.list-items__img--down', (e) =
 
 //Erledigte löschen
 document.querySelector('.clear__button').addEventListener('click', () => {
-    tasks = tasks.filter(task => task.checked === false);
+    tasks = tasks.filter(task => task.completed === false);
     saveTasks(tasks);
     render(tasks);
 })
