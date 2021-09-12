@@ -33,3 +33,29 @@ export const post = async (url, object, callback) => {
         console.error('Error:', error);
     }
 }
+
+export const updateDB = async (url, obj, callback) => {
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(obj),
+        })
+        let resp = await response.json();
+        console.log(resp);
+    } catch(error) {
+        console.error('Error:', error);
+    }
+}
+
+export const deleteDB = async (url) => {
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+        })
+        let json = await response;
+        console.log(json);
+    } catch(error) {
+        console.error('Error:', error);
+    }
+}

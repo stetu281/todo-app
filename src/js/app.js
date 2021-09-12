@@ -1,11 +1,11 @@
 import * as Tools from './tools.js';
 import css from '../scss/main.scss';
-import arrowUp from '../images/arrow-up.svg'
-import arrowDown from '../images/arrow-down.svg'
-import del from '../images/icon-cross.svg'
-import spinner from '../images/spinner.svg'
-import sun from '../images/icon-sun.svg'
-import moon from '../images/icon-moon.svg'
+import arrowUp from '../images/arrow-up.svg';
+import arrowDown from '../images/arrow-down.svg';
+import del from '../images/icon-cross.svg';
+import spinner from '../images/spinner.svg';
+import sun from '../images/icon-sun.svg';
+import moon from '../images/icon-moon.svg';
 
 //light und darkmode umschalten
 document.querySelector('.header__button').addEventListener('click', (e) => {
@@ -17,22 +17,43 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
     }
 })
 
-
 //variablen
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
-const loading = document.querySelector('.loading');
 let tasks = [];
-const exampleTask = [{title: "Example Task", completed: true}];
 
+//Initial Load
 getTasks();
 
-function render(tasks) {
-    list.innerHTML = '';
+//Funktion Tasks von der Datanbank holen, wenn DB nicht verfügbar, im Localstorage probieren
+async function getTasks() {
+    const loading = document.querySelector('.loading');
+    loading.classList.toggle('loading--hide');
 
+    await Tools.get('http://localhost:3000/todos', (response) => {
+
+        if(!response || response.length === 0) {
+            let json = localStorage.getItem('tasks');
+            if(json) {
+                tasks = JSON.parse(json);
+                renderTasks(tasks);
+                loading.classList.toggle('loading--hide');
+            }
+        } else {
+            tasks = response;
+            renderTasks(tasks);
+            loading.classList.toggle('loading--hide');
+        }
+    }) 
+}
+
+//Funktion zum Tasks rendern
+function renderTasks(tasks) {
+    list.innerHTML = '';
     for(let [index, task] of tasks.entries()) {
         const li = document.createElement('li');
         li.dataset.index = index;
+        li.dataset.id = task.id;
         li.classList = 'list-items__item';
         li.innerHTML = `
             <label class="list-items__checkbox-label">
@@ -48,79 +69,34 @@ function render(tasks) {
         `;
         list.appendChild(li);
     }
-    remainingItemsInfo();
+    countTasks();
 };
 
-//Funktion Wenn input leer warning klasse hinzufügen sonst Objekt erstellen und ins Tasks Array pushen.
+//Funktion Wenn input leer warning klasse hinzufügen, sonst Objekt erstellen, in DB speichern und ins Tasks Array pushen.
 function addItem() {
     if(taskInput.value === '') {
         taskInput.classList.add('create-item__input--warning');
         taskInput.placeholder = 'Please fill in this field...';
     } else {
         taskInput.classList.remove('create-item__input--warning');
-        const input = {title: taskInput.value, completed: false};
+        const input = {title: taskInput.value, completed: 0};
         taskInput.value = '';
         tasks.push(input);
-        saveTasks(tasks);
-        render(tasks);
+        Tools.post('http://localhost:3000/todos', input);
+        saveToLocal();
+        renderTasks(tasks);
+        countTasks();
     };
 };
 
-//Funktion Tasks vom Server, localhost oder exampleTasks variable holen
-async function getTasks() {
-    loading.classList.toggle('loading--hide');
-    
-    await Tools.get('http://localhost:3000/todos', function(response) {
-        if(!response || response.length === 0) {
-            let json = localStorage.getItem('tasks');
-            if(json) {
-                tasks = JSON.parse(json);
-                render(tasks);
-                loading.classList.toggle('loading--hide');
-            } else {
-                tasks = exampleTask;
-                render(tasks);
-                loading.classList.toggle('loading--hide');
-            }
-        } else {
-            tasks = response;
-            render(tasks);
-            loading.classList.toggle('loading--hide');
-        }       
-    });
-}
-
-//Funktion Tasks auf Server und im localstorage speichern
-async function saveTasks(tasks) {
-
-    await Tools.post('http://localhost:3002/todos', tasks, function(response) {
-        console.log(response)
-    })
-
+//Funktion um tasks array im Localstorage zu speichern
+function saveToLocal() {
     if(tasks.length === 0) {
         localStorage.clear();
     } else {
         let json = JSON.stringify(tasks);
         localStorage.setItem('tasks', json);
     }
-}
-
-//Funktion zum Status im Objekt ändern
-function toggleStatus(id) {
-    tasks[id].completed === false ? tasks[id].completed = true : tasks[id].completed = false;
-    saveTasks(tasks);
-}
-
-//Funktion zum zählen und anzeigen nicht erledigter tasks
-function remainingItemsInfo() {
-    let doneTasks = tasks.filter(task => task.completed === false);
-    document.querySelector('.clear__stats').innerHTML = `${doneTasks.length} items left`;    
-}
-
-//Funktion zum filtern nach true oder false
-function filter(bool) {
-    let filtered = tasks.filter(task => task.completed === bool);
-    render(filtered);
 }
 
 //Funktion zum verschieben der elemente
@@ -130,18 +106,19 @@ function moveIndex(arr, fromIndex, toIndex) {
     arr.splice(toIndex, 0, element);
 }
 
-//Checked status im objekt ändern
-list.addEventListener('click', Tools.delegate('.list-items__status', (e) => {
-    toggleStatus(e.target.parentNode.parentNode.dataset.index);
-    remainingItemsInfo();
-}))
+//Funktion zum zählen und anzeigen nicht erledigter tasks
+function countTasks() {
+    let arr = tasks.filter(task => task.completed === 0);
+    document.querySelector('.clear__stats').innerHTML = `${arr.length} tasks to do`;    
+}
 
-list.addEventListener('click', Tools.delegate('span.list-items__description', (e) => {
-    toggleStatus(e.target.parentNode.parentNode.dataset.index);
-    remainingItemsInfo();
-}))
+//Funktion zum filtern der tasks
+function filter(val) {
+    let filtered = tasks.filter(task => task.completed === val);
+    renderTasks(filtered);
+}
 
-//Task zur Liste hinzufügen
+//Eventlistener zum Tasks erstellen
 document.querySelector('.create-item__button').addEventListener('click', addItem)
 taskInput.addEventListener('keyup', (e) => {
     if(e.key === 'Enter') {
@@ -149,40 +126,73 @@ taskInput.addEventListener('keyup', (e) => {
     };
 });
 
-//tasks löschen
-list.addEventListener('click', Tools.delegate('img.list-items__img--close', (e) => {
-    Tools.removeElement(e.target.parentNode.parentNode);
-    let arr = tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
-    saveTasks(tasks);
-    render(tasks);
+//Eventlistener zum umschalten des erledigt status
+list.addEventListener('click', Tools.delegate('.list-items__status', (e) => {
+    let id = e.target.parentNode.parentNode.dataset.id;
+    let index = e.target.parentNode.parentNode.dataset.index;
+
+    tasks[index].completed === 0 ? tasks[index].completed = 1 : tasks[index].completed = 0;
+
+    Tools.updateDB(`http://localhost:3000/todos/${id}`,tasks[index], (response) => {
+        console.log(response);
+    })
+    saveToLocal();
+    countTasks();
 }));
 
-//tasks nach oben verschieben, wenn an erster stelle an letze stelle verschieben
+list.addEventListener('click', Tools.delegate('.list-items__description', (e) => {
+    let id = e.target.parentNode.parentNode.dataset.id;
+    let index = e.target.parentNode.parentNode.dataset.index;
+
+    tasks[index].completed === 0 ? tasks[index].completed = 1 : tasks[index].completed = 0;
+
+    Tools.updateDB(`http://localhost:3000/todos/${id}`,tasks[index], (response) => {
+        console.log(response);
+    })
+    saveToLocal();
+    countTasks();
+}));
+
+//Eventlistener zum löschen eines tasks
+list.addEventListener('click', Tools.delegate('img.list-items__img--close', (e) => {
+    let id = e.target.parentNode.parentNode.dataset.id;
+    Tools.removeElement(e.target.parentNode.parentNode);
+    tasks.splice(e.target.parentNode.parentNode.dataset.index, 1);
+    Tools.deleteDB(`http://localhost:3000/todos/${id}`);
+    saveToLocal();
+    renderTasks(tasks);
+    countTasks();
+}))
+
+//Eventlistener zum löschen aller erledigten tasks
+document.querySelector('.clear__button').addEventListener('click', (e) => {
+    let arr = tasks.filter(task => task.completed === 1);
+    for(let task of arr) {
+        Tools.deleteDB(`http://localhost:3000/todos/${task.id}`);
+    }
+
+    tasks = tasks.filter(task => task.completed === 0);
+    renderTasks(tasks);
+    countTasks();
+})
+
+//tasks nach oben verschieben
 list.addEventListener('click', Tools.delegate('img.list-items__img--up', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
     if(index !== 0) {
         moveIndex(tasks, index, index - 1);
     }
-    saveTasks(tasks);
-    render(tasks);
+    renderTasks(tasks);
 }))
 
-//tasks nach unten verschieben, wenn an letzter stelle an erste stelle verschieben
+//tasks nach unten verschieben
 list.addEventListener('click', Tools.delegate('img.list-items__img--down', (e) => {
     let index = parseInt(e.target.parentNode.parentNode.dataset.index);
     if(index !== tasks.length - 1) {
         moveIndex(tasks, index, index + 1);
     }
-    saveTasks(tasks);
-    render(tasks);
+    renderTasks(tasks);
 }))
-
-//Erledigte löschen
-document.querySelector('.clear__button').addEventListener('click', () => {
-    tasks = tasks.filter(task => task.completed === false);
-    saveTasks(tasks);
-    render(tasks);
-})
 
 //Liste filtern / button active state ändern
 document.querySelector('.clear__filters').addEventListener('click', Tools.delegate('.clear__filter', (e) => {
@@ -192,13 +202,13 @@ document.querySelector('.clear__filters').addEventListener('click', Tools.delega
     }
 
     if(e.target.innerHTML === 'Completed') {
-        filter(true);
+        filter(1);
         e.target.classList.add('clear__filter--active');
     } else if(e.target.innerHTML === 'Active') {
-        filter(false);
+        filter(0);
         e.target.classList.add('clear__filter--active');
     } else {
-        render(tasks);
+        renderTasks(tasks);
         e.target.classList.add('clear__filter--active');
     }
 }))
