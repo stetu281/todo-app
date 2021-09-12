@@ -1,4 +1,5 @@
 import * as Tools from './tools.js';
+import { GraphQLClient, gql } from 'graphql-request';
 import css from '../scss/main.scss';
 import arrowUp from '../images/arrow-up.svg';
 import arrowDown from '../images/arrow-down.svg';
@@ -18,12 +19,15 @@ document.querySelector('.header__button').addEventListener('click', (e) => {
 })
 
 //variablen
+const graphQLClient = new GraphQLClient('https://graphql-weather-api.herokuapp.com');
 const list = document.querySelector('.list-items');
 const taskInput = document.querySelector('.create-item__input');
 let tasks = [];
 
 //Initial Load
 getTasks();
+getTemp();
+setInterval(getTemp, 120000);
 
 //Funktion Tasks von der Datanbank holen, wenn DB nicht verfügbar, im Localstorage probieren
 async function getTasks() {
@@ -116,6 +120,25 @@ function countTasks() {
 function filter(val) {
     let filtered = tasks.filter(task => task.completed === val);
     renderTasks(filtered);
+}
+
+//Funktion zum Temperatur anzeigen
+async function getTemp() {
+    const query = gql`
+    query {
+        getCityByName(name: "glarus", config: {units:metric}) {
+        weather {
+            temperature {
+            actual
+            }
+        }
+        }
+    }
+    `;
+    const response = await graphQLClient.request(query);
+    let temp = Math.floor(response.getCityByName.weather.temperature.actual);
+
+    document.querySelector('.temp').innerHTML = `Glarus: ${temp}°C`;
 }
 
 //Eventlistener zum Tasks erstellen
